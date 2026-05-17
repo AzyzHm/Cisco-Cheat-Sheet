@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cisco Cheatsheet</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230d0f14'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='900' font-size='36' fill='%23f5a623'>C</text><circle cx='48' cy='16' r='7' fill='%2338e8c0'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=Outfit:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#"><span>Cisco</span>&nbsp;Cheatsheet</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sec1">Globale</a></li>
+    <li><a href="#sec2">Équipements</a></li>
+    <li><a href="#sec3">Monitoring</a></li>
+    <li><a href="#sec4">Config Switch</a></li>
+    <li><a href="#sec5">Inter-VLAN</a></li>
+    <li><a href="#sec6">Routage Statique</a></li>
+    <li><a href="#sec7">Sauvegarde</a></li>
+    <li><a href="#sec8">Table de Routage</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-icon" id="themeToggle" title="Changer le thème">
+      <svg id="iconMoon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg id="iconSun" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" id="search" placeholder="Rechercher une commande, un concept..." autocomplete="off">
+    <span class="search-hint">↵ Entrée</span>
+  </div>
+</div>
+
+<div class="main">
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Cisco IOS · IPv4 / IPv6</div>
+    <h1>Aide-Mémoire<br><em>Réseau</em></h1>
+    <p>Toutes les commandes essentielles Cisco IOS pour la configuration, la surveillance et le routage des réseaux.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">8</span><span class="stat-label">Sections</span></div>
+      <div class="stat"><span class="stat-val">40+</span><span class="stat-label">Commandes</span></div>
+      <div class="stat"><span class="stat-val">3</span><span class="stat-label">Modèles</span></div>
+    </div>
+  </div>
+
+  <div id="noResults" class="no-results">Aucun résultat pour cette recherche.</div>
+
+  <!-- 1. BASE GLOBALE -->
+  <section class="section" id="sec1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Commandes de Base Globale</h2>
+    </div>
+    <div class="section-context">Router(config)# · Switch(config)#</div>
+
+    <div class="card">
+      <div class="card-title">Activer le routage IPv4</div>
+      <div class="card-desc">Sur un commutateur multicouche (Layer 3 Switch).</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">ip routing</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'ip routing')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Activer le routage IPv6</div>
+      <div class="card-desc">Sur les routeurs ou commutateurs compatibles IPv6.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">ipv6 unicast-routing</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'ipv6 unicast-routing')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Désactiver la recherche DNS</div>
+      <div class="card-desc">Évite que l'équipement ne se bloque lors d'une commande incorrecte.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">no ip domain-lookup</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'no ip domain-lookup')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ÉQUIPEMENTS -->
+  <section class="section" id="sec2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Équipements à Utiliser</h2>
+    </div>
+    <div class="devices-grid">
+      <div class="device-card">
+        <div class="device-label">Commutateur</div>
+        <div class="device-name switch">Cisco 2960</div>
+        <div class="device-detail">Opérations de commutation standard.</div>
+        <span class="device-layer layer2">Layer 2</span>
+      </div>
+      <div class="device-card">
+        <div class="device-label">Commutateur multicouche</div>
+        <div class="device-name switch">Cisco 3560-24PS</div>
+        <div class="device-detail">Commutation et routage inter-VLAN via SVI.</div>
+        <span class="device-layer layer3">Layer 3</span>
+      </div>
+      <div class="device-card">
+        <div class="device-label">Routeur</div>
+        <div class="device-name router">Cisco 1941</div>
+        <div class="device-detail">Routage IP statique et dynamique (OSPF, etc.).</div>
+        <span class="device-layer layer-r">Routeur</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MONITORING -->
+  <section class="section" id="sec3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Commandes de Surveillance</h2>
+    </div>
+    <div class="section-context">Router# · Switch# (mode exec privilégié)</div>
+
+    <div class="card">
+      <div class="card-title">État des interfaces</div>
+      <div class="card-desc">Affiche l'état physique et logique des ports.</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>show ip interface brief</code><button class="cmd-copy" onclick="copyCmd(this,'show ip interface brief')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>show interfaces</code><button class="cmd-copy" onclick="copyCmd(this,'show interfaces')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Base de données des VLANs</div>
+      <div class="card-desc">Affiche les VLANs créés et les ports assignés.</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>show vlan</code><button class="cmd-copy" onclick="copyCmd(this,'show vlan')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>show vlan brief</code><button class="cmd-copy" onclick="copyCmd(this,'show vlan brief')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Table de routage</div>
+      <div class="card-desc">Affiche les réseaux connus et leur méthode d'apprentissage.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">exec#</span>
+        <span class="cmd-text">show ip route</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'show ip route')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CONFIG SWITCH -->
+  <section class="section" id="sec4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Configuration de Base (Commutateur)</h2>
+    </div>
+    <div class="section-context">Switch(config)# (mode de configuration globale)</div>
+
+    <div class="card">
+      <div class="card-title">Nom d'hôte</div>
+      <div class="card-desc">Change le nom de l'équipement.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">hostname [Nom]</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'hostname [Nom]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Bannière MOTD</div>
+      <div class="card-desc">Affiche un message d'avertissement à la connexion.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">banner motd # [Message] #</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'banner motd # [Message] #')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Mot de passe enable</div>
+      <div class="card-desc">Sécurise l'accès au mode <code style="font-family:'Space Mono',monospace;font-size:0.8em;color:var(--accent2)">enable</code>.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">enable secret [Mot_de_passe]</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'enable secret [Mot_de_passe]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Création de VLAN</div>
+      <div class="card-desc">Crée un réseau local virtuel et lui attribue un nom.</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>vlan [ID_VLAN]</code><button class="cmd-copy" onclick="copyCmd(this,'vlan [ID_VLAN]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>name [Nom_du_VLAN]</code><button class="cmd-copy" onclick="copyCmd(this,'name [Nom_du_VLAN]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Port en mode Accès</div>
+      <div class="card-desc">Assigne un port à un seul VLAN — généralement pour les PC.</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>interface [Type_Port]</code><button class="cmd-copy" onclick="copyCmd(this,'interface [Type_Port]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>switchport mode access</code><button class="cmd-copy" onclick="copyCmd(this,'switchport mode access')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>switchport access vlan [ID_VLAN]</code><button class="cmd-copy" onclick="copyCmd(this,'switchport access vlan [ID_VLAN]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Port en mode Trunk</div>
+      <div class="card-desc">Transporte le trafic de plusieurs VLANs — entre commutateurs ou vers un routeur.</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>interface [Type_Port]</code><button class="cmd-copy" onclick="copyCmd(this,'interface [Type_Port]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>switchport mode trunk</code><button class="cmd-copy" onclick="copyCmd(this,'switchport mode trunk')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Ligne Console</div>
+      <div class="card-desc">Sécurise l'accès physique par câble console.</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>line console 0</code><button class="cmd-copy" onclick="copyCmd(this,'line console 0')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>password [Mot_de_passe]</code><button class="cmd-copy" onclick="copyCmd(this,'password [Mot_de_passe]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>login</code><button class="cmd-copy" onclick="copyCmd(this,'login')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Lignes VTY — Telnet</div>
+      <div class="card-desc">Accès à distance non sécurisé (en clair).</div>
+      <div class="cmd-group">
+        <div class="cmd-row"><code>line vty 0 4</code><button class="cmd-copy" onclick="copyCmd(this,'line vty 0 4')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>password [Mot_de_passe]</code><button class="cmd-copy" onclick="copyCmd(this,'password [Mot_de_passe]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        <div class="cmd-row"><code>login</code><button class="cmd-copy" onclick="copyCmd(this,'login')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Lignes VTY — SSH</div>
+      <div class="card-desc">Accès à distance sécurisé et chiffré. Toutes les étapes requises :</div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <div class="step-text">Configurer un nom d'hôte valide</div>
+            <div class="cmd-block"><span class="cmd-prefix">config#</span><span class="cmd-text">hostname [Nom]</span><button class="cmd-copy" onclick="copyCmd(this,'hostname [Nom]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <div class="step-text">Créer un domaine</div>
+            <div class="cmd-block"><span class="cmd-prefix">config#</span><span class="cmd-text">ip domain-name [Nom_de_domaine]</span><button class="cmd-copy" onclick="copyCmd(this,'ip domain-name [Nom_de_domaine]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <div class="step-text">Générer les clés RSA (choisir 1024 ou 2048 bits)</div>
+            <div class="cmd-block"><span class="cmd-prefix">config#</span><span class="cmd-text">crypto key generate rsa</span><button class="cmd-copy" onclick="copyCmd(this,'crypto key generate rsa')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <div class="step-text">Créer un utilisateur local</div>
+            <div class="cmd-block"><span class="cmd-prefix">config#</span><span class="cmd-text">username [Nom] secret [Mot_de_passe]</span><button class="cmd-copy" onclick="copyCmd(this,'username [Nom] secret [Mot_de_passe]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num">5</span>
+          <div class="step-body">
+            <div class="step-text">Appliquer SSH aux lignes VTY</div>
+            <div class="cmd-group" style="margin-top:0.35rem">
+              <div class="cmd-row"><code>line vty 0 4</code><button class="cmd-copy" onclick="copyCmd(this,'line vty 0 4')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+              <div class="cmd-row"><code>transport input ssh</code><button class="cmd-copy" onclick="copyCmd(this,'transport input ssh')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+              <div class="cmd-row"><code>login local</code><button class="cmd-copy" onclick="copyCmd(this,'login local')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Passerelle par Défaut (Accès depuis un autre LAN)</div>
+      <div class="card-desc">Nécessaire pour qu'un commutateur Layer 2 soit joignable depuis un réseau distant (Telnet ou SSH). À configurer en mode global après avoir assigné une IP à l'interface SVI de gestion.</div>
+      <div class="float-route">
+        <div class="route-type">
+          <div class="route-type-label">IPv4</div>
+          <div class="cmd-block">
+            <span class="cmd-prefix">config#</span>
+            <span class="cmd-text">ip default-gateway [IP_Passerelle]</span>
+            <button class="cmd-copy" onclick="copyCmd(this,'ip default-gateway [IP_Passerelle]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+        <div class="route-type">
+          <div class="route-type-label">IPv6</div>
+          <div class="cmd-block">
+            <span class="cmd-prefix">config#</span>
+            <span class="cmd-text">ipv6 route ::/0 [IPv6_Passerelle]</span>
+            <button class="cmd-copy" onclick="copyCmd(this,'ipv6 route ::/0 [IPv6_Passerelle]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. INTER-VLAN -->
+  <section class="section" id="sec5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Méthodes de Routage Inter-VLAN</h2>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-card legacy">
+        <span class="method-tag legacy">Legacy</span>
+        <div class="method-title">Interface physique</div>
+        <div class="method-desc">Un port physique du routeur par VLAN. Peu scalable, consomme beaucoup de ports.</div>
+      </div>
+      <div class="method-card ros">
+        <span class="method-tag ros">Router-on-a-Stick</span>
+        <div class="method-title">Sous-interfaces virtuelles</div>
+        <div class="method-desc">Un seul port physique divisé en sous-interfaces (ex: G0/0.10, G0/0.20).</div>
+        <div class="cmd-block" style="margin-top:0.5rem">
+          <span class="cmd-prefix">config-if#</span>
+          <span class="cmd-text">encapsulation dot1Q [ID_VLAN]</span>
+          <button class="cmd-copy" onclick="copyCmd(this,'encapsulation dot1Q [ID_VLAN]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+      </div>
+      <div class="method-card l3">
+        <span class="method-tag l3">Layer 3 Switch</span>
+        <div class="method-title">SVI — Interface VLAN</div>
+        <div class="method-desc">Commutateur multicouche avec interfaces virtuelles VLAN.</div>
+        <div class="cmd-group" style="margin-top:0.5rem">
+          <div class="cmd-row"><code>ip routing</code><button class="cmd-copy" onclick="copyCmd(this,'ip routing')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+          <div class="cmd-row"><code>interface vlan [ID_VLAN]</code><button class="cmd-copy" onclick="copyCmd(this,'interface vlan [ID_VLAN]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+          <div class="cmd-row"><code>ip address [IP] [Masque]</code><button class="cmd-copy" onclick="copyCmd(this,'ip address [IP] [Masque]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ROUTAGE STATIQUE -->
+  <section class="section" id="sec6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Routage Statique — IPv4 &amp; IPv6</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Next-Hop — Tronçon suivant</div>
+      <div class="card-desc">Spécifie uniquement l'IP de l'interface du routeur voisin.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">ip route [Réseau_Dest] [Masque] [IP_Prochain_Saut]</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'ip route [Réseau_Dest] [Masque] [IP_Prochain_Saut]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Directly Connected — Interface de sortie</div>
+      <div class="card-desc">Spécifie uniquement l'interface de sortie du routeur local.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">ip route [Réseau_Dest] [Masque] [Interface_Sortie]</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'ip route [Réseau_Dest] [Masque] [Interface_Sortie]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Fully Specified — Complète</div>
+      <div class="card-desc">Spécifie à la fois l'interface de sortie et l'IP du prochain saut.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">config#</span>
+        <span class="cmd-text">ip route [Réseau_Dest] [Masque] [Interface_Sortie] [IP_Prochain_Saut]</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'ip route [Réseau_Dest] [Masque] [Interface_Sortie] [IP_Prochain_Saut]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Route par Défaut</div>
+      <div class="card-desc">Envoie tout le trafic dont la destination est inconnue.</div>
+      <div class="float-route">
+        <div class="route-type">
+          <div class="route-type-label">IPv4</div>
+          <div class="cmd-block">
+            <span class="cmd-prefix">v4</span>
+            <span class="cmd-text">ip route 0.0.0.0 0.0.0.0 [Next-Hop]</span>
+            <button class="cmd-copy" onclick="copyCmd(this,'ip route 0.0.0.0 0.0.0.0 [Next-Hop]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+        <div class="route-type">
+          <div class="route-type-label">IPv6</div>
+          <div class="cmd-block">
+            <span class="cmd-prefix">v6</span>
+            <span class="cmd-text">ipv6 route ::/0 [Next-Hop]</span>
+            <button class="cmd-copy" onclick="copyCmd(this,'ipv6 route ::/0 [Next-Hop]')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Route Statique Flottante</div>
+      <div class="card-desc">Route de secours utilisée uniquement si la route principale tombe. La distance administrative (AD) doit être supérieure à 1 (ex: 5).</div>
+      <div class="float-route">
+        <div class="route-type">
+          <div class="route-type-label">IPv4</div>
+          <div class="cmd-block">
+            <span class="cmd-prefix">v4</span>
+            <span class="cmd-text">ip route [Dest] [Masque] [Next-Hop] 5</span>
+            <button class="cmd-copy" onclick="copyCmd(this,'ip route [Dest] [Masque] [Next-Hop] 5')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+        <div class="route-type">
+          <div class="route-type-label">IPv6</div>
+          <div class="cmd-block">
+            <span class="cmd-prefix">v6</span>
+            <span class="cmd-text">ipv6 route [Dest]/[Préfixe] [Next-Hop] 5</span>
+            <button class="cmd-copy" onclick="copyCmd(this,'ipv6 route [Dest]/[Préfixe] [Next-Hop] 5')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SAUVEGARDE -->
+  <section class="section" id="sec7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Sauvegarde de la Configuration</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Sauvegarder la config en cours</div>
+      <div class="card-desc">Copie la configuration RAM (running-config) vers la NVRAM (startup-config). La config sera préservée après un redémarrage.</div>
+      <div class="cmd-block">
+        <span class="cmd-prefix">exec#</span>
+        <span class="cmd-text">copy running-config startup-config</span>
+        <button class="cmd-copy" onclick="copyCmd(this,'copy running-config startup-config')" title="Copier"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. TABLE ROUTAGE -->
+  <section class="section" id="sec8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Détails de la Table de Routage</h2>
+    </div>
+    <div class="section-context">Codes de la commande : show ip route</div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="route-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="route-code teal">L</span></td>
+            <td>Local</td>
+            <td>Adresse IP assignée physiquement sur une interface du routeur.</td>
+          </tr>
+          <tr>
+            <td><span class="route-code teal">C</span></td>
+            <td>Connected</td>
+            <td>Réseau physiquement connecté directement à une interface du routeur.</td>
+          </tr>
+          <tr>
+            <td><span class="route-code">S</span></td>
+            <td>Static</td>
+            <td>Route configurée manuellement par l'administrateur réseau.</td>
+          </tr>
+          <tr>
+            <td><span class="route-code muted">O</span></td>
+            <td>OSPF</td>
+            <td>Route dynamique apprise via le protocole OSPF depuis un autre routeur.</td>
+          </tr>
+          <tr>
+            <td><span class="route-code red">*</span></td>
+            <td>Route par défaut</td>
+            <td>Candidate utilisée comme passerelle de dernier recours (gateway of last resort).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<footer>Cisco Cheatsheet · Cisco IOS · Aide-Mémoire Examen</footer>
+
+<div class="toast" id="toast">✓ Commande copiée !</div>
+
+<script src="script.js"></script>
+</body>
+</html>
