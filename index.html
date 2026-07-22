@@ -34,7 +34,10 @@
 <div class="search-wrap">
   <div class="search-inner">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="search" id="search" placeholder="Rechercher une commande, un concept..." autocomplete="off">
+    <label for="search" class="sr-only">
+    Rechercher une commande
+</label>
+    <input type="search" id="search" aria-label="Rechercher une commande, un concept" placeholder="Rechercher une commande, un concept..." autocomplete="off">
     <span class="search-hint">↵ Entrée</span>
   </div>
 </div>
