@@ -70,10 +70,14 @@
     });
   }
   function resetHighlight(el) {
-    el.querySelectorAll('span:has(mark)').forEach(s => {
-      s.replaceWith(document.createTextNode(s.textContent));
+    el.querySelectorAll('mark').forEach(m => {
+      const span = m.closest('span');
+      if (span) {
+        span.replaceWith(document.createTextNode(span.textContent));
+      } else {
+        m.replaceWith(m.textContent);
+      }
     });
-    el.querySelectorAll('mark').forEach(m => m.replaceWith(m.textContent));
   }
 
   // Active nav highlight on scroll
